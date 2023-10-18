@@ -1,4 +1,4 @@
-package node.type.models;
+package node.type.models.conduct;
 
 import java.util.logging.Logger;
 

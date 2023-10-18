@@ -1,4 +1,4 @@
-package node.type.models;
+package node.type.models.conduct;
 
 import dlt.client.tangle.hornet.enums.TransactionType;
 import dlt.client.tangle.hornet.model.transactions.Evaluation;

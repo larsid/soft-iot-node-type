@@ -1,4 +1,4 @@
-package node.type.models;
+package node.type.models.conduct;
 
 import node.type.models.enums.ConductType;
 import node.type.models.tangle.LedgerConnector;
