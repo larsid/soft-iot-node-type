@@ -43,6 +43,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.github.larsid</groupId>
+            <artifactId>SOFT-IoT-DLT-ID-Manager</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>br.uefs.larsid.iot.soft</groupId>
             <artifactId>soft-iot-dlt-client-tangle-hornet</artifactId>
             <version>1.0-SNAPSHOT</version>
