@@ -33,6 +33,7 @@ public class NodeType implements INodeType {
    * Executa o que foi definido na função quando o bundle for inicializado.
    */
   public void start() {
+    // TODO: Adicionar os demais tipos de nós.
     switch (nodeType) {
       case 1:
         this.node = new Honest(this.ledgerConnector, this.idManager.getID());
