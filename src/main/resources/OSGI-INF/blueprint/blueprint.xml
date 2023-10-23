@@ -25,6 +25,7 @@
         <property name="honestyRate" value="${honestyRate}" />
         <property name="ledgerConnector" ref="ledgerConnector" />
         <property name="idManager" ref="idManagerService" />
+        <property name="group" ref="idManagerGroupService" />
     </bean>
 
     <cm:property-placeholder

@@ -98,7 +98,12 @@ public class NodeType implements INodeType {
 
   @Override
   public String getNodeId() {
-    return idManager.getID();
+    return this.idManager.getID();
+  }
+
+  @Override
+  public String getNodeGroup() {
+    return this.group.getGroup();
   }
 
   public IIDManagerService getIdManager() {
