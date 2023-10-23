@@ -1,7 +1,7 @@
 package node.type.models.conduct;
 
 import dlt.client.tangle.hornet.enums.TransactionType;
-import dlt.client.tangle.hornet.model.transactions.Evaluation;
+import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
 import dlt.client.tangle.hornet.model.transactions.IndexTransaction;
 import dlt.client.tangle.hornet.model.transactions.Transaction;
 import java.util.logging.Logger;
@@ -28,8 +28,8 @@ public class Disturbing extends Conduct {
    * Tangle.
    * @param id String - Identificador único do nó.
    */
-  public Disturbing(LedgerConnector ledgerConnector, String id) {
-    super(ledgerConnector, id);
+  public Disturbing(LedgerConnector ledgerConnector, String id, String group) {
+    super(ledgerConnector, id, group);
     this.setConductType(ConductType.HONEST);
   }
 
@@ -97,6 +97,7 @@ public class Disturbing extends Conduct {
     Transaction transactionEvaluation = new Evaluation(
       this.getId(),
       deviceId,
+      this.getGroup(),
       TransactionType.REP_EVALUATION,
       value
     );

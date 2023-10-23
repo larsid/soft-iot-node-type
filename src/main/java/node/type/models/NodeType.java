@@ -1,5 +1,6 @@
 package node.type.models;
 
+import dlt.id.manager.services.IDLTGroupManager;
 import dlt.id.manager.services.IIDManagerService;
 import java.util.logging.Logger;
 import node.type.models.conduct.Conduct;
@@ -20,6 +21,7 @@ public class NodeType implements INodeType {
   private Conduct node;
   private LedgerConnector ledgerConnector;
   private IIDManagerService idManager;
+  private IDLTGroupManager group;
   private int nodeType;
   private float honestyRate;
 
@@ -36,7 +38,12 @@ public class NodeType implements INodeType {
     // TODO: Adicionar os demais tipos de nós.
     switch (nodeType) {
       case 1:
-        this.node = new Honest(this.ledgerConnector, this.idManager.getID());
+        this.node =
+          new Honest(
+            this.ledgerConnector,
+            this.idManager.getID(),
+            this.group.getGroup()
+          );
         logger.info("Initializing a Honest Node.");
         break;
       case 2:
@@ -44,6 +51,7 @@ public class NodeType implements INodeType {
           new Malicious(
             this.ledgerConnector,
             this.idManager.getID(),
+            this.group.getGroup(),
             this.honestyRate
           );
         logger.info("Initializing a Malicious Node.");
@@ -52,11 +60,21 @@ public class NodeType implements INodeType {
         );
         break;
       case 3:
-        this.node = new Selfish(ledgerConnector, this.idManager.getID());
+        this.node =
+          new Selfish(
+            ledgerConnector,
+            this.idManager.getID(),
+            this.group.getGroup()
+          );
         logger.info("Initializing a Selfish Node.");
         break;
       case 5:
-        this.node = new Disturbing(ledgerConnector, this.idManager.getID());
+        this.node =
+          new Disturbing(
+            ledgerConnector,
+            this.idManager.getID(),
+            this.group.getGroup()
+          );
         logger.info("Initializing a Disturbing Node.");
         break;
       default:
@@ -82,7 +100,7 @@ public class NodeType implements INodeType {
   public String getNodeId() {
     return idManager.getID();
   }
-  
+
   public IIDManagerService getIdManager() {
     return idManager;
   }
@@ -101,6 +119,14 @@ public class NodeType implements INodeType {
 
   public void setIdManager(IIDManagerService idManager) {
     this.idManager = idManager;
+  }
+
+  public IDLTGroupManager getGroup() {
+    return group;
+  }
+
+  public void setGroup(IDLTGroupManager group) {
+    this.group = group;
   }
 
   public int getNodeType() {

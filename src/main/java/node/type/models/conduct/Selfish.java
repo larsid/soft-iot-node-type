@@ -24,8 +24,8 @@ public class Selfish extends Conduct {
    * Tangle.
    * @param id String - Identificador único do nó.
    */
-  public Selfish(LedgerConnector ledgerConnector, String id) {
-    super(ledgerConnector, id);
+  public Selfish(LedgerConnector ledgerConnector, String id, String group) {
+    super(ledgerConnector, id, group);
     this.defineConduct();
   }
 

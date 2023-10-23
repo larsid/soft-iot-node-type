@@ -14,6 +14,7 @@ public abstract class Conduct {
   private ConductType conductType;
   private final LedgerConnector ledgerConnector;
   private final String id;
+  private final String group;
 
   /**
    * Método construtor.
@@ -22,9 +23,10 @@ public abstract class Conduct {
    * Tangle.
    * @param id String - Identificador único do nó.
    */
-  public Conduct(LedgerConnector ledgerConnector, String id) {
+  public Conduct(LedgerConnector ledgerConnector, String id, String group) {
     this.ledgerConnector = ledgerConnector;
     this.id = id;
+    this.group = group;
   }
 
   /**
@@ -57,5 +59,9 @@ public abstract class Conduct {
 
   public String getId() {
     return id;
+  }
+
+  public String getGroup() {
+    return group;
   }
 }

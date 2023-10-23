@@ -1,7 +1,7 @@
 package node.type.models.conduct;
 
 import dlt.client.tangle.hornet.enums.TransactionType;
-import dlt.client.tangle.hornet.model.transactions.Evaluation;
+import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
 import dlt.client.tangle.hornet.model.transactions.IndexTransaction;
 import dlt.client.tangle.hornet.model.transactions.Transaction;
 import node.type.models.enums.ConductType;
@@ -34,9 +34,10 @@ public class Malicious extends Conduct {
   public Malicious(
     LedgerConnector ledgerConnector,
     String id,
+    String group,
     float honestyRate
   ) {
-    super(ledgerConnector, id);
+    super(ledgerConnector, id, group);
     this.honestyRate = honestyRate;
     this.defineConduct(); // TODO: Criar task para alterar o comportamento desse tipo de nó de tempos em tempos.
   }
@@ -94,6 +95,7 @@ public class Malicious extends Conduct {
     Transaction transactionEvaluation = new Evaluation(
       this.getId(),
       deviceId,
+      this.getGroup(),
       TransactionType.REP_EVALUATION,
       value
     );
