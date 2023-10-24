@@ -1,7 +1,6 @@
 package node.type.models.conduct;
 
 import java.util.logging.Logger;
-
 import node.type.models.enums.ConductType;
 import node.type.models.tangle.LedgerConnector;
 
@@ -41,13 +40,14 @@ public class Selfish extends Conduct {
    * Avalia o serviço que foi prestado pelo dispositivo, de acordo com o tipo de
    * comportamento do nó.
    *
-   * @param deviceId String - Id do dispositivo que será avaliado.
+   * @param serviceProviderId String - Id do provedor do serviço que será
+   * avaliado.
    * @param value int - Valor da avaliação.
    * @throws InterruptedException
    */
   @Override
-  public void evaluateDevice(String deviceId, int value)
+  public void evaluateServiceProvider(String serviceProviderId, int value)
     throws InterruptedException {
-    logger.info("Selfish node does not evaluate the device.");
+    logger.info("Selfish node does not evaluate the service provider.");
   }
 }

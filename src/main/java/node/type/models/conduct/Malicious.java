@@ -61,13 +61,14 @@ public class Malicious extends Conduct {
    * Avalia o serviço que foi prestado pelo dispositivo, de acordo com o tipo de
    * comportamento do nó.
    *
-   * @param deviceId String - Id do dispositivo que será avaliado.
+   * @param serviceProviderId String - Id do provedor do serviço que será 
+   * avaliado.
    * @param value int - Valor da avaliação. Se o tipo de conduta for 'MALICIOUS'
    * este parâmetro é ignorado.
    * @throws InterruptedException
    */
   @Override
-  public void evaluateDevice(String deviceId, int value)
+  public void evaluateServiceProvider(String serviceProviderId, int value)
     throws InterruptedException {
     switch (this.getConductType()) {
       case HONEST:
@@ -94,7 +95,7 @@ public class Malicious extends Conduct {
 
     Transaction transactionEvaluation = new Evaluation(
       this.getId(),
-      deviceId,
+      serviceProviderId,
       this.getGroup(),
       TransactionType.REP_EVALUATION,
       value
@@ -102,7 +103,7 @@ public class Malicious extends Conduct {
 
     // Adicionando avaliação na Tangle.
     this.getLedgerConnector()
-      .put(new IndexTransaction(deviceId, transactionEvaluation));
+      .put(new IndexTransaction(serviceProviderId, transactionEvaluation));
   }
 
   public float getHonestyRate() {

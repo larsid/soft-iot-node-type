@@ -43,12 +43,13 @@ public class Honest extends Conduct {
    * Avalia o serviço que foi prestado pelo dispositivo, de acordo com o tipo de
    * comportamento do nó.
    *
-   * @param deviceId String - Id do dispositivo que será avaliado.
+   * @param serviceProviderId String - Id do provedor do serviço que será 
+   * avaliado.
    * @param value int - Valor da avaliação.
    * @throws InterruptedException
    */
   @Override
-  public void evaluateDevice(String deviceId, int value)
+  public void evaluateServiceProvider(String serviceProviderId, int value)
     throws InterruptedException {
     switch (value) {
       case 0:
@@ -64,7 +65,7 @@ public class Honest extends Conduct {
 
     Transaction transactionEvaluation = new Evaluation(
       this.getId(),
-      deviceId,
+      serviceProviderId,
       this.getGroup(),
       TransactionType.REP_EVALUATION,
       value
@@ -72,6 +73,6 @@ public class Honest extends Conduct {
 
     // Adicionando avaliação na Tangle.
     this.getLedgerConnector()
-      .put(new IndexTransaction(deviceId, transactionEvaluation));
+      .put(new IndexTransaction(serviceProviderId, transactionEvaluation));
   }
 }

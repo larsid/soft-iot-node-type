@@ -35,15 +35,17 @@ public abstract class Conduct {
   public abstract void defineConduct();
 
   /**
-   * Avalia o serviço que foi prestado pelo dispositivo, de acordo com o tipo de
+   * Avalia o serviço que foi prestado, de acordo com o tipo de
    * comportamento do nó.
    *
-   * @param deviceId String - Id do dispositivo que será avaliado.
+   * @param serviceProviderId String - Id do dispositivo que será avaliado.
    * @param value int - Valor da avaliação.
    * @throws InterruptedException
    */
-  public abstract void evaluateDevice(String deviceId, int value)
-    throws InterruptedException;
+  public abstract void evaluateServiceProvider(
+    String serviceProviderId,
+    int value
+  ) throws InterruptedException;
 
   public ConductType getConductType() {
     return conductType;
