@@ -14,6 +14,7 @@ public abstract class Conduct {
   private ConductType conductType;
   private final LedgerConnector ledgerConnector;
   private final String id;
+  private final String group;
 
   /**
    * Método construtor.
@@ -22,9 +23,10 @@ public abstract class Conduct {
    * Tangle.
    * @param id String - Identificador único do nó.
    */
-  public Conduct(LedgerConnector ledgerConnector, String id) {
+  public Conduct(LedgerConnector ledgerConnector, String id, String group) {
     this.ledgerConnector = ledgerConnector;
     this.id = id;
+    this.group = group;
   }
 
   /**
@@ -33,15 +35,17 @@ public abstract class Conduct {
   public abstract void defineConduct();
 
   /**
-   * Avalia o serviço que foi prestado pelo dispositivo, de acordo com o tipo de
+   * Avalia o serviço que foi prestado, de acordo com o tipo de
    * comportamento do nó.
    *
-   * @param deviceId String - Id do dispositivo que será avaliado.
+   * @param serviceProviderId String - Id do dispositivo que será avaliado.
    * @param value int - Valor da avaliação.
    * @throws InterruptedException
    */
-  public abstract void evaluateDevice(String deviceId, int value)
-    throws InterruptedException;
+  public abstract void evaluateServiceProvider(
+    String serviceProviderId,
+    int value
+  ) throws InterruptedException;
 
   public ConductType getConductType() {
     return conductType;
@@ -57,5 +61,9 @@ public abstract class Conduct {
 
   public String getId() {
     return id;
+  }
+
+  public String getGroup() {
+    return group;
   }
 }
