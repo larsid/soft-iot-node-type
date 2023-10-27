@@ -6,6 +6,8 @@ public interface INodeType {
   public Conduct getNode();
 
   public String getNodeId();
+  
+  public String getNodeIp();
 
   public String getNodeGroup();
 }

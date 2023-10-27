@@ -102,6 +102,11 @@ public class NodeType implements INodeType {
   }
 
   @Override
+  public String getNodeIp() {
+    return this.idManager.getIP();
+  }
+
+  @Override
   public String getNodeGroup() {
     return this.group.getGroup();
   }
