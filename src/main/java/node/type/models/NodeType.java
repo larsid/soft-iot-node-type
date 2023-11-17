@@ -44,7 +44,7 @@ public class NodeType implements INodeType {
             this.idManager.getID(),
             this.group.getGroup()
           );
-        logger.info("Initializing a Honest Node.");
+        logger.info("Initializing a Honest Node."); // TODO: Colocar o ID do nó nessas mensages
         break;
       case 2:
         this.node =
