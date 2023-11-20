@@ -82,6 +82,7 @@ public class NodeType implements INodeType {
         this.stop();
         break;
     }
+    logger.info("Node ID: " + this.getNodeId());
   }
 
   /**
