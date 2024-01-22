@@ -39,12 +39,15 @@ public abstract class Conduct {
    * comportamento do nó.
    *
    * @param serviceProviderId String - Id do dispositivo que será avaliado.
-   * @param value int - Valor da avaliação.
+   * @param value float - Valor da avaliação.
+   * @param provided boolean - Indica se o serviço foi prestado corretamente ou
+   * não.
    * @throws InterruptedException
    */
   public abstract void evaluateServiceProvider(
     String serviceProviderId,
-    int value
+    float value,
+    boolean provided
   ) throws InterruptedException;
 
   public ConductType getConductType() {

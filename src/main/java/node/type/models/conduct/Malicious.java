@@ -1,18 +1,17 @@
 package node.type.models.conduct;
 
 import dlt.client.tangle.hornet.enums.TransactionType;
-import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
 import dlt.client.tangle.hornet.model.transactions.IndexTransaction;
 import dlt.client.tangle.hornet.model.transactions.Transaction;
+import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
+import java.util.Random;
+import java.util.logging.Logger;
 import node.type.models.enums.ConductType;
 import node.type.models.tangle.LedgerConnector;
 
-import java.util.Random;
-import java.util.logging.Logger;
-
 /**
  * Nó tipo malicioso.
- * 
+ *
  * @author Allan Capistrano
  * @version 1.0.0
  */
@@ -61,27 +60,26 @@ public class Malicious extends Conduct {
    * Avalia o serviço que foi prestado pelo dispositivo, de acordo com o tipo de
    * comportamento do nó.
    *
-   * @param serviceProviderId String - Id do provedor do serviço que será 
+   * @param serviceProviderId String - Id do provedor do serviço que será
    * avaliado.
-   * @param value int - Valor da avaliação. Se o tipo de conduta for 'MALICIOUS'
+   * @param value float - Valor da avaliação. Se o tipo de conduta for 'MALICIOUS'
    * este parâmetro é ignorado.
+   * @param provided boolean - Indica se o serviço foi prestado corretamente ou
+   * não.
    * @throws InterruptedException
    */
   @Override
-  public void evaluateServiceProvider(String serviceProviderId, int value)
-    throws InterruptedException {
+  public void evaluateServiceProvider(
+    String serviceProviderId,
+    float value,
+    boolean provided
+  ) throws InterruptedException {
     switch (this.getConductType()) {
       case HONEST:
-        switch (value) {
-          case 0:
-            logger.info("Did not provide the service.");
-            break;
-          case 1:
-            logger.info("Provided the service.");
-            break;
-          default:
-            logger.warning("Unable to evaluate the device");
-            break;
+        if (provided) {
+          logger.info("Provided the service.");
+        } else {
+          logger.info("Did not provide the service.");
         }
         break;
       case MALICIOUS:
