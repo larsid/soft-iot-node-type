@@ -65,8 +65,8 @@ public class Malicious extends Conduct {
    * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado
    * corretamente; 1 -> prestado corretamente).
    * @param nodeCredibility float - Credibilidade do nó avaliador.
-   * @param value float - Valor da avaliação. Se o tipo de conduta for 'MALICIOUS'
-   * este parâmetro é ignorado.
+   * @param value float - Valor da avaliação. Se o tipo de conduta for 
+   * 'MALICIOUS' este parâmetro é ignorado.
    * @param provided boolean - Indica se o serviço foi prestado corretamente ou
    * não.
    * @throws InterruptedException
@@ -89,7 +89,8 @@ public class Malicious extends Conduct {
         break;
       case MALICIOUS:
         logger.info("Did not provide the service.");
-        value = 0; // Alterando o valor da avaliação para 'serviço não prestado'.
+        /* Alterando o valor da avaliação para 'serviço não prestado'. */
+        value = 0;
         break;
       default:
         logger.severe("Error! ConductType not found.");
