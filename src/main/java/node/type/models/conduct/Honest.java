@@ -48,8 +48,6 @@ public class Honest extends Conduct {
    * corretamente; 1 -> prestado corretamente).
    * @param nodeCredibility float - Credibilidade do nó avaliador.
    * @param value float - Valor da avaliação.
-   * @param provided boolean - Indica se o serviço foi prestado corretamente ou
-   * não.
    * @throws InterruptedException
    */
   @Override
@@ -57,13 +55,18 @@ public class Honest extends Conduct {
     String serviceProviderId,
     int serviceEvaluation,
     float nodeCredibility,
-    float value,
-    boolean provided
+    float value
   ) throws InterruptedException {
-    if (provided) {
-      logger.info("Provided the service.");
-    } else {
-      logger.info("Did not provide the service.");
+    switch (serviceEvaluation) {
+      case 0:
+        logger.info("[" + serviceProviderId + "] Did not provide the service.");
+        break;
+      case 1:
+        logger.info("[" + serviceProviderId + "] Provided the service.");
+        break;
+      default:
+        logger.warning("Unable to evaluate the device");
+        break;
     }
 
     Transaction transactionEvaluation = new Evaluation(

@@ -65,10 +65,8 @@ public class Malicious extends Conduct {
    * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado
    * corretamente; 1 -> prestado corretamente).
    * @param nodeCredibility float - Credibilidade do nó avaliador.
-   * @param value float - Valor da avaliação. Se o tipo de conduta for 
+   * @param value float - Valor da avaliação. Se o tipo de conduta for
    * 'MALICIOUS' este parâmetro é ignorado.
-   * @param provided boolean - Indica se o serviço foi prestado corretamente ou
-   * não.
    * @throws InterruptedException
    */
   @Override
@@ -76,15 +74,22 @@ public class Malicious extends Conduct {
     String serviceProviderId,
     int serviceEvaluation,
     float nodeCredibility,
-    float value,
-    boolean provided
+    float value
   ) throws InterruptedException {
     switch (this.getConductType()) {
       case HONEST:
-        if (provided) {
-          logger.info("Provided the service.");
-        } else {
-          logger.info("Did not provide the service.");
+        switch (serviceEvaluation) {
+          case 0:
+            logger.info(
+              "[" + serviceProviderId + "] Did not provide the service."
+            );
+            break;
+          case 1:
+            logger.info("[" + serviceProviderId + "] Provided the service.");
+            break;
+          default:
+            logger.warning("Unable to evaluate the device");
+            break;
         }
         break;
       case MALICIOUS:

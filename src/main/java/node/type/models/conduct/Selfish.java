@@ -42,12 +42,10 @@ public class Selfish extends Conduct {
    *
    * @param serviceProviderId String - Id do provedor do serviço que será
    * avaliado.
-   * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado 
+   * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado
    * corretamente; 1 -> prestado corretamente).
    * @param nodeCredibility float - Credibilidade do nó avaliador.
    * @param value float - Valor da avaliação.
-   * @param provided boolean - Indica se o serviço foi prestado corretamente ou
-   * não.
    * @throws InterruptedException
    */
   @Override
@@ -55,8 +53,7 @@ public class Selfish extends Conduct {
     String serviceProviderId,
     int serviceEvaluation,
     float nodeCredibility,
-    float value,
-    boolean provided
+    float value
   ) throws InterruptedException {
     logger.info("Selfish node does not evaluate the service provider.");
   }

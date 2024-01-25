@@ -43,16 +43,13 @@ public abstract class Conduct {
    * corretamente; 1 -> prestado corretamente).
    * @param nodeCredibility float - Credibilidade do nó avaliador.
    * @param value float - Valor da avaliação.
-   * @param provided boolean - Indica se o serviço foi prestado corretamente ou
-   * não.
    * @throws InterruptedException
    */
   public abstract void evaluateServiceProvider(
     String serviceProviderId,
     int serviceEvaluation,
     float nodeCredibility,
-    float value,
-    boolean provided
+    float value
   ) throws InterruptedException;
 
   public ConductType getConductType() {
