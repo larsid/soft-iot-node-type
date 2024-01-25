@@ -12,7 +12,7 @@ import node.type.models.tangle.LedgerConnector;
  * Nó do tipo perturbador.
  *
  * @author Allan Capistrano
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class Disturbing extends Conduct {
 
@@ -64,6 +64,9 @@ public class Disturbing extends Conduct {
    *
    * @param serviceProviderId String - Id do provedor do serviço que será
    * avaliado.
+   * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado
+   * corretamente; 1 -> prestado corretamente).
+   * @param nodeCredibility float - Credibilidade do nó avaliador.
    * @param value float - Valor da avaliação. Se o tipo de conduta for
    * 'MALICIOUS' este parâmetro é ignorado.
    * @param provided boolean - Indica se o serviço foi prestado corretamente ou
@@ -73,6 +76,8 @@ public class Disturbing extends Conduct {
   @Override
   public void evaluateServiceProvider(
     String serviceProviderId,
+    int serviceEvaluation,
+    float nodeCredibility,
     float value,
     boolean provided
   ) throws InterruptedException {
@@ -99,6 +104,8 @@ public class Disturbing extends Conduct {
       serviceProviderId,
       this.getGroup(),
       TransactionType.REP_EVALUATION,
+      serviceEvaluation,
+      nodeCredibility,
       value
     );
 

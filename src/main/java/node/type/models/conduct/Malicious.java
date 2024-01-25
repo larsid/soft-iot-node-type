@@ -13,7 +13,7 @@ import node.type.models.tangle.LedgerConnector;
  * Nó tipo malicioso.
  *
  * @author Allan Capistrano
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class Malicious extends Conduct {
 
@@ -46,7 +46,7 @@ public class Malicious extends Conduct {
    */
   @Override
   public void defineConduct() {
-    // Gerando um número aleatório entre 0 e 100.
+    /* Gerando um número aleatório entre 0 e 100. */
     float randomNumber = new Random().nextFloat() * 100;
 
     if (randomNumber > honestyRate) {
@@ -62,6 +62,9 @@ public class Malicious extends Conduct {
    *
    * @param serviceProviderId String - Id do provedor do serviço que será
    * avaliado.
+   * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado
+   * corretamente; 1 -> prestado corretamente).
+   * @param nodeCredibility float - Credibilidade do nó avaliador.
    * @param value float - Valor da avaliação. Se o tipo de conduta for 'MALICIOUS'
    * este parâmetro é ignorado.
    * @param provided boolean - Indica se o serviço foi prestado corretamente ou
@@ -71,6 +74,8 @@ public class Malicious extends Conduct {
   @Override
   public void evaluateServiceProvider(
     String serviceProviderId,
+    int serviceEvaluation,
+    float nodeCredibility,
     float value,
     boolean provided
   ) throws InterruptedException {
@@ -96,10 +101,12 @@ public class Malicious extends Conduct {
       serviceProviderId,
       this.getGroup(),
       TransactionType.REP_EVALUATION,
+      serviceEvaluation,
+      nodeCredibility,
       value
     );
 
-    // Adicionando avaliação na Tangle.
+    /* Adicionando avaliação na Tangle. */
     this.getLedgerConnector()
       .put(new IndexTransaction(serviceProviderId, transactionEvaluation));
   }

@@ -7,7 +7,7 @@ import node.type.models.tangle.LedgerConnector;
  * Comportamento base para os tipos de nó.
  *
  * @author Allan Capistrano
- * @version 1.0.0
+ * @version 1.1.0
  */
 public abstract class Conduct {
 
@@ -39,6 +39,9 @@ public abstract class Conduct {
    * comportamento do nó.
    *
    * @param serviceProviderId String - Id do dispositivo que será avaliado.
+   * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado 
+   * corretamente; 1 -> prestado corretamente).
+   * @param nodeCredibility float - Credibilidade do nó avaliador.
    * @param value float - Valor da avaliação.
    * @param provided boolean - Indica se o serviço foi prestado corretamente ou
    * não.
@@ -46,6 +49,8 @@ public abstract class Conduct {
    */
   public abstract void evaluateServiceProvider(
     String serviceProviderId,
+    int serviceEvaluation,
+    float nodeCredibility,
     float value,
     boolean provided
   ) throws InterruptedException;

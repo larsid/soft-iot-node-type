@@ -8,7 +8,7 @@ import node.type.models.tangle.LedgerConnector;
  * Nó do tipo egoísta.
  *
  * @author Allan Capistrano
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class Selfish extends Conduct {
 
@@ -42,6 +42,9 @@ public class Selfish extends Conduct {
    *
    * @param serviceProviderId String - Id do provedor do serviço que será
    * avaliado.
+   * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado 
+   * corretamente; 1 -> prestado corretamente).
+   * @param nodeCredibility float - Credibilidade do nó avaliador.
    * @param value float - Valor da avaliação.
    * @param provided boolean - Indica se o serviço foi prestado corretamente ou
    * não.
@@ -50,6 +53,8 @@ public class Selfish extends Conduct {
   @Override
   public void evaluateServiceProvider(
     String serviceProviderId,
+    int serviceEvaluation,
+    float nodeCredibility,
     float value,
     boolean provided
   ) throws InterruptedException {
