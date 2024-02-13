@@ -1,19 +1,18 @@
 package node.type.models.conduct;
 
 import dlt.client.tangle.hornet.enums.TransactionType;
-import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
 import dlt.client.tangle.hornet.model.transactions.IndexTransaction;
 import dlt.client.tangle.hornet.model.transactions.Transaction;
+import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
+import java.util.logging.Logger;
 import node.type.models.enums.ConductType;
 import node.type.models.tangle.LedgerConnector;
-
-import java.util.logging.Logger;
 
 /**
  * Nó do tipo honesto.
  *
  * @author Allan Capistrano
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class Honest extends Conduct {
 
@@ -43,20 +42,27 @@ public class Honest extends Conduct {
    * Avalia o serviço que foi prestado pelo dispositivo, de acordo com o tipo de
    * comportamento do nó.
    *
-   * @param serviceProviderId String - Id do provedor do serviço que será 
+   * @param serviceProviderId String - Id do provedor do serviço que será
    * avaliado.
-   * @param value int - Valor da avaliação.
+   * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado
+   * corretamente; 1 -> prestado corretamente).
+   * @param nodeCredibility float - Credibilidade do nó avaliador.
+   * @param value float - Valor da avaliação.
    * @throws InterruptedException
    */
   @Override
-  public void evaluateServiceProvider(String serviceProviderId, int value)
-    throws InterruptedException {
-    switch (value) {
+  public void evaluateServiceProvider(
+    String serviceProviderId,
+    int serviceEvaluation,
+    float nodeCredibility,
+    float value
+  ) throws InterruptedException {
+    switch (serviceEvaluation) {
       case 0:
-        logger.info("Did not provide the service.");
+        logger.info("[" + serviceProviderId + "] Did not provide the service.");
         break;
       case 1:
-        logger.info("Provided the service.");
+        logger.info("[" + serviceProviderId + "] Provided the service.");
         break;
       default:
         logger.warning("Unable to evaluate the device");
@@ -68,10 +74,12 @@ public class Honest extends Conduct {
       serviceProviderId,
       this.getGroup(),
       TransactionType.REP_EVALUATION,
+      serviceEvaluation,
+      nodeCredibility,
       value
     );
 
-    // Adicionando avaliação na Tangle.
+    /* Adicionando avaliação na Tangle. */
     this.getLedgerConnector()
       .put(new IndexTransaction(serviceProviderId, transactionEvaluation));
   }

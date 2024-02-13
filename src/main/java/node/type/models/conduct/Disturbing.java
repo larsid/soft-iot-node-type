@@ -12,7 +12,7 @@ import node.type.models.tangle.LedgerConnector;
  * Nó do tipo perturbador.
  *
  * @author Allan Capistrano
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class Disturbing extends Conduct {
 
@@ -62,23 +62,32 @@ public class Disturbing extends Conduct {
    * Avalia o serviço que foi prestado, de acordo com o tipo de comportamento
    * do nó.
    *
-   * @param serviceProviderId String - Id do provedor do serviço que será 
+   * @param serviceProviderId String - Id do provedor do serviço que será
    * avaliado.
-   * @param value int - Valor da avaliação. Se o tipo de conduta for 'MALICIOUS'
-   * este parâmetro é ignorado.
+   * @param serviceEvaluation int - Avaliação do serviço, (0 -> não prestado
+   * corretamente; 1 -> prestado corretamente).
+   * @param nodeCredibility float - Credibilidade do nó avaliador.
+   * @param value float - Valor da avaliação. Se o tipo de conduta for
+   * 'MALICIOUS' este parâmetro é ignorado.
    * @throws InterruptedException
    */
   @Override
-  public void evaluateServiceProvider(String serviceProviderId, int value)
-    throws InterruptedException {
+  public void evaluateServiceProvider(
+    String serviceProviderId,
+    int serviceEvaluation,
+    float nodeCredibility,
+    float value
+  ) throws InterruptedException {
     switch (this.getConductType()) {
       case HONEST:
-        switch (value) {
+        switch (serviceEvaluation) {
           case 0:
-            logger.info("Did not provide the service.");
+            logger.info(
+              "[" + serviceProviderId + "] Did not provide the service."
+            );
             break;
           case 1:
-            logger.info("Provided the service.");
+            logger.info("[" + serviceProviderId + "] Provided the service.");
             break;
           default:
             logger.warning("Unable to evaluate the device");
@@ -87,7 +96,8 @@ public class Disturbing extends Conduct {
         break;
       case MALICIOUS:
         logger.info("Did not provide the service.");
-        value = 0; // Alterando o valor da avaliação para 'serviço não prestado'.
+        /* Alterando o valor da avaliação para 'serviço não prestado'. */
+        value = 0;
         break;
       default:
         logger.severe("Error! ConductType not found.");
@@ -99,10 +109,12 @@ public class Disturbing extends Conduct {
       serviceProviderId,
       this.getGroup(),
       TransactionType.REP_EVALUATION,
+      serviceEvaluation,
+      nodeCredibility,
       value
     );
 
-    // Adicionando avaliação na Tangle.
+    /* Adicionando avaliação na Tangle. */
     this.getLedgerConnector()
       .put(new IndexTransaction(serviceProviderId, transactionEvaluation));
   }
