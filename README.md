@@ -14,3 +14,6 @@ O `soft-iot-node-type` é o _bundle_ responsável pelo gerenciamento dos tipos d
 | honestyRate | Probabilidade (em %) do comportamento para o nó malicioso. | 50 |
 
 ###### Obs<sup>1</sup>: Opções dos tipos de nós: 1 -> Honesto, 2 -> Malicioso, 3 -> Egoista, 4 -> Corrupto, 5 -> Perturbador. ######
+
+## Licença
+[GPL-3.0 License](./LICENSE)
