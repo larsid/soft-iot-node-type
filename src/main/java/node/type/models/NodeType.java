@@ -8,6 +8,7 @@ import node.type.models.conduct.Disturbing;
 import node.type.models.conduct.Honest;
 import node.type.models.conduct.Malicious;
 import node.type.models.conduct.Selfish;
+import node.type.models.enums.ConductType;
 import node.type.models.tangle.LedgerConnector;
 import node.type.services.INodeType;
 
@@ -24,6 +25,7 @@ public class NodeType implements INodeType {
   private IDLTGroupManager group;
   private int nodeType;
   private float honestyRate;
+  private ConductType type;
 
   private static final Logger logger = Logger.getLogger(
     NodeType.class.getName()
@@ -43,6 +45,7 @@ public class NodeType implements INodeType {
             this.idManager.getID(),
             this.group.getGroup()
           );
+        this.setType(ConductType.HONEST);
         logger.info("Initializing a Honest Node.");
         break;
       case 2:
@@ -53,6 +56,7 @@ public class NodeType implements INodeType {
             this.group.getGroup(),
             this.honestyRate
           );
+        this.setType(ConductType.MALICIOUS);
         logger.info("Initializing a Malicious Node.");
         logger.info(
           "Malicious node behavior: " + node.getConductType().toString()
@@ -65,6 +69,7 @@ public class NodeType implements INodeType {
             this.idManager.getID(),
             this.group.getGroup()
           );
+        this.setType(ConductType.SELFISH);
         logger.info("Initializing a Selfish Node.");
         break;
       case 5:
@@ -74,6 +79,7 @@ public class NodeType implements INodeType {
             this.idManager.getID(),
             this.group.getGroup()
           );
+        this.setType(ConductType.DISTURBING);
         logger.info("Initializing a Disturbing Node.");
         break;
       default:
@@ -109,6 +115,15 @@ public class NodeType implements INodeType {
   @Override
   public String getNodeGroup() {
     return this.group.getGroup();
+  }
+
+  @Override
+  public ConductType getType() {
+    return type;
+  }
+
+  public void setType(ConductType type) {
+    this.type = type;
   }
 
   public IIDManagerService getIdManager() {
