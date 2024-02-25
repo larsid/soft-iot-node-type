@@ -38,7 +38,7 @@ public class Malicious extends Conduct {
   ) {
     super(ledgerConnector, id, group);
     this.honestyRate = honestyRate;
-    this.defineConduct(); // TODO: Criar task para alterar o comportamento desse tipo de nó de tempos em tempos.
+    this.defineConduct();
   }
 
   /**
@@ -95,6 +95,7 @@ public class Malicious extends Conduct {
       case MALICIOUS:
         logger.info("Did not provide the service.");
         /* Alterando o valor da avaliação para 'serviço não prestado'. */
+        serviceEvaluation = 0;
         value = 0;
         break;
       default:

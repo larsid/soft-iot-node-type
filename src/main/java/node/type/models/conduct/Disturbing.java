@@ -97,6 +97,7 @@ public class Disturbing extends Conduct {
       case MALICIOUS:
         logger.info("Did not provide the service.");
         /* Alterando o valor da avaliação para 'serviço não prestado'. */
+        serviceEvaluation = 0;
         value = 0;
         break;
       default:
