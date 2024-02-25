@@ -72,7 +72,7 @@ public class NodeType implements INodeType {
         this.setType(ConductType.SELFISH);
         logger.info("Initializing a Selfish Node.");
         break;
-      case 5: // TODO: Alterar para 4 e remover o 'Corrupto' do arquivo de configurações
+      case 4:
         this.node =
           new Disturbing(
             ledgerConnector,
