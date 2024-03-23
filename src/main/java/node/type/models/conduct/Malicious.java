@@ -93,7 +93,7 @@ public class Malicious extends Conduct {
         }
         break;
       case MALICIOUS:
-        logger.info("Did not provide the service.");
+        logger.info("[" + serviceProviderId + "] Did not provide the service.");
         /* Alterando o valor da avaliação para 'serviço não prestado'. */
         serviceEvaluation = 0;
         value = 0;
