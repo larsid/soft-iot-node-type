@@ -4,6 +4,7 @@ import dlt.client.tangle.hornet.enums.TransactionType;
 import dlt.client.tangle.hornet.model.transactions.IndexTransaction;
 import dlt.client.tangle.hornet.model.transactions.Transaction;
 import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
+import java.util.Random;
 import java.util.logging.Logger;
 import node.type.models.enums.ConductType;
 import node.type.models.tangle.LedgerConnector;
@@ -12,9 +13,11 @@ import node.type.models.tangle.LedgerConnector;
  * Nó do tipo perturbador.
  *
  * @author Allan Capistrano
- * @version 1.1.0
+ * @version 1.2.0
  */
 public class Disturbing extends Conduct {
+
+  private final float honestyRate;
 
   private static final Logger logger = Logger.getLogger(
     Disturbing.class.getName()
@@ -27,9 +30,15 @@ public class Disturbing extends Conduct {
    * Tangle.
    * @param id String - Identificador único do nó.
    */
-  public Disturbing(LedgerConnector ledgerConnector, String id, String group) {
+  public Disturbing(
+    LedgerConnector ledgerConnector,
+    String id,
+    String group,
+    float honestyRate
+  ) {
     super(ledgerConnector, id, group);
     this.setConductType(ConductType.HONEST);
+    this.honestyRate = honestyRate;
   }
 
   /**
@@ -95,10 +104,29 @@ public class Disturbing extends Conduct {
         }
         break;
       case MALICIOUS:
-        logger.info("Did not provide the service.");
-        /* Alterando o valor da avaliação para 'serviço não prestado'. */
-        serviceEvaluation = 0;
-        value = 0;
+        /* Gerando um número aleatório entre 0 e 100. */
+        float randomNumber = new Random().nextFloat() * 100;
+
+        if (randomNumber > this.honestyRate) {
+          logger.info("Did not provide the service.");
+          /* Alterando o valor da avaliação para 'serviço não prestado'. */
+          serviceEvaluation = 0;
+          value = 0;
+        } else {
+          switch (serviceEvaluation) {
+            case 0:
+              logger.info(
+                "[" + serviceProviderId + "] Did not provide the service."
+              );
+              break;
+            case 1:
+              logger.info("[" + serviceProviderId + "] Provided the service.");
+              break;
+            default:
+              logger.warning("Unable to evaluate the device");
+              break;
+          }
+        }
         break;
       default:
         logger.severe("Error! ConductType not found.");
@@ -118,5 +146,9 @@ public class Disturbing extends Conduct {
     /* Adicionando avaliação na Tangle. */
     this.getLedgerConnector()
       .put(new IndexTransaction(serviceProviderId, transactionEvaluation));
+  }
+
+  public float getHonestyRate() {
+    return honestyRate;
   }
 }
