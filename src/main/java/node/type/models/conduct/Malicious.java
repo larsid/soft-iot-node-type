@@ -49,7 +49,7 @@ public class Malicious extends Conduct {
     /* Gerando um número aleatório entre 0 e 100. */
     float randomNumber = new Random().nextFloat() * 100;
 
-    if (randomNumber > honestyRate) {
+    if (randomNumber > this.honestyRate) {
       this.setConductType(ConductType.MALICIOUS);
     } else {
       this.setConductType(ConductType.HONEST);
