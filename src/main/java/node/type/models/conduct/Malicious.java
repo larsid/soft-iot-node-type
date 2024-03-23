@@ -49,7 +49,7 @@ public class Malicious extends Conduct {
     /* Gerando um número aleatório entre 0 e 100. */
     float randomNumber = new Random().nextFloat() * 100;
 
-    if (randomNumber > honestyRate) {
+    if (randomNumber > this.honestyRate) {
       this.setConductType(ConductType.MALICIOUS);
     } else {
       this.setConductType(ConductType.HONEST);
@@ -88,12 +88,12 @@ public class Malicious extends Conduct {
             logger.info("[" + serviceProviderId + "] Provided the service.");
             break;
           default:
-            logger.warning("Unable to evaluate the device");
+            logger.warning("Unable to evaluate the service provider.");
             break;
         }
         break;
       case MALICIOUS:
-        logger.info("Did not provide the service.");
+        logger.info("[" + serviceProviderId + "] Did not provide the service.");
         /* Alterando o valor da avaliação para 'serviço não prestado'. */
         serviceEvaluation = 0;
         value = 0;

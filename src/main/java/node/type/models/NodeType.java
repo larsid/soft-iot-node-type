@@ -77,7 +77,8 @@ public class NodeType implements INodeType {
           new Disturbing(
             ledgerConnector,
             this.idManager.getID(),
-            this.group.getGroup()
+            this.group.getGroup(),
+            this.honestyRate
           );
         this.setType(ConductType.DISTURBING);
         logger.info("Initializing a Disturbing Node.");
