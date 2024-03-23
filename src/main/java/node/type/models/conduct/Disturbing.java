@@ -46,25 +46,14 @@ public class Disturbing extends Conduct {
    */
   @Override
   public void defineConduct() {
-    this.changeConduct();
-  }
+    /* Gerando um número aleatório entre 0 e 100. */
+    float randomNumber = new Random().nextFloat() * 100;
 
-  /**
-   * Altera a conduta do nó:
-   * Se ele for honesto -> muda para malicioso;
-   * Se ele for malicioso -> muda para honesto.
-   */
-  private void changeConduct() {
-    this.setConductType(
-        this.getConductType() == ConductType.HONEST
-          ? ConductType.MALICIOUS
-          : ConductType.HONEST
-      );
-
-    logger.info(
-      "Changing Disturbing node behavior to: " +
-      this.getConductType().toString()
-    );
+    if (randomNumber > this.honestyRate) {
+      this.setConductType(ConductType.MALICIOUS);
+    } else {
+      this.setConductType(ConductType.HONEST);
+    }
   }
 
   /**
@@ -104,29 +93,10 @@ public class Disturbing extends Conduct {
         }
         break;
       case MALICIOUS:
-        /* Gerando um número aleatório entre 0 e 100. */
-        float randomNumber = new Random().nextFloat() * 100;
-
-        if (randomNumber > this.honestyRate) {
-          logger.info("[" + serviceProviderId + "] Did not provide the service.");
-          /* Alterando o valor da avaliação para 'serviço não prestado'. */
-          serviceEvaluation = 0;
-          value = 0;
-        } else {
-          switch (serviceEvaluation) {
-            case 0:
-              logger.info(
-                "[" + serviceProviderId + "] Did not provide the service."
-              );
-              break;
-            case 1:
-              logger.info("[" + serviceProviderId + "] Provided the service.");
-              break;
-            default:
-              logger.warning("Unable to evaluate the service provider.");
-              break;
-          }
-        }
+        logger.info("[" + serviceProviderId + "] Did not provide the service.");
+        /* Alterando o valor da avaliação para 'serviço não prestado'. */
+        serviceEvaluation = 0;
+        value = 0;
         break;
       default:
         logger.severe("Error! ConductType not found.");
