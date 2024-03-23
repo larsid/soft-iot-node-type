@@ -88,7 +88,7 @@ public class Malicious extends Conduct {
             logger.info("[" + serviceProviderId + "] Provided the service.");
             break;
           default:
-            logger.warning("Unable to evaluate the device");
+            logger.warning("Unable to evaluate the service provider.");
             break;
         }
         break;
